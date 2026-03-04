@@ -1,0 +1,28 @@
+@startuml
+
+class Customer {
+}
+
+class Cart {
+    Customer: Customer
+    Resturant: Restaurant
+    CartItems: List<CartItem>
+}
+
+class CartItem {
+    MenuItem: MenuItem
+}
+
+class Restaurant {
+}
+
+class MenuItem {
+}
+
+class Order {
+}
+
+class OrderItem {
+}
+
+@enduml
