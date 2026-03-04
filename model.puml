@@ -1,28 +1,97 @@
 @startuml
 
-class Customer {
+
+' ---- Layout & Stil ----
+hide empty methods
+
+ 
+' ---- Legende ----
+legend right
+<<RichType>>: Stark typisierte Primitive
+<<ValueObject>>: Value Objects
+<<entity>>: Persistente Entität
+<<unique>>: Eindeutige Einschränkung auf Spaltenebene
+<<nn>>: Not null
+endlegend
+
+' ===================== Packages =====================
+
+package "Shared\n(Value Objects)" as P_Shared #EEF6FF {
+ 
+  class Email << (R,#FFEECC) RichType >> {
+    +Value: string <<nn>>
+  }
+ 
+  class PhoneNumber << (R,#FFEECC) RichType >> {
+    +Value: string <<nn>>
+  }
+ 
+  class Address << (V,#CCEEFF) ValueObject >> {
+    +street: string <<nn>>
+    +zip: TimeOnly <<nn>>
+    +city: string <<nn>>
+    +country: string <<nn>>
+  }
 }
 
-class Cart {
-    Customer: Customer
-    Resturant: Restaurant
-    CartItems: List<CartItem>
+package "User" as P_User #FFF5E6 {
+
+    abstract class User <<entity>> {
+    
+    }
+    
+    class Customer <<entity>> {
+    }
+    
+    class RestarauntOwner <<entity>> {
+    }
 }
 
-class CartItem {
-    MenuItem: MenuItem
+
+package "Cart" as P_Cart #EAF8EA {
+
+    class Cart <<entity>> {
+        +Customer: Customer
+        +Resturant: Restaurant
+        +CartItems: List<CartItem>
+    }
+    
+    class CartItem <<entity>> {
+        +MenuItem: MenuItem
+        +Cart: Cart
+    }
 }
 
-class Restaurant {
+
+package "Restaurant" as P_Restaurant #D3C0D2 {
+
+   class Restaurant <<entity>> {
+        +RestarauntOwner: RestarauntOwner
+    }
+
+    class MenuItem <<entity>> {
+        +Restaruant: Restaurant
+    }
 }
 
-class MenuItem {
+
+package "Order" as P_Order #FFF0FF {
+
+    class Order <<entity>> {
+        +Customer: Customer
+        +Resturant: Restaurant
+        +OrderItems: List<OrderItem>
+    }
+    
+    class OrderItem <<entity>> {
+        +Order: Order
+    }
 }
 
-class Order {
-}
+' ===================== Beziehungen =====================
 
-class OrderItem {
-}
+Cart "0..1" <-- Customer
+Cart "*" --> "1" Resturant
+Cart "1" <-- "*" CartItems
 
 @enduml
