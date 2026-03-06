@@ -22,7 +22,7 @@ package "Shared\n(Value Objects)" as P_Shared #EEF6FF {
     +Value: string <<nn>>
   }
  
-  class PhoneNumber << (R,#FFEECC) RichType >> {
+  class Phone << (R,#FFEECC) RichType >> {
     +Value: string <<nn>>
   }
  
@@ -34,31 +34,56 @@ package "Shared\n(Value Objects)" as P_Shared #EEF6FF {
   }
 }
 
-package "User" as P_User #FFF5E6 {
+enum UserRole {
+  Admin
+  Customer
+  Restaurant_Owner
+  Guest
+}
 
-    abstract class User <<entity>> {
-    
+package "Customer" as P_Customer #FFF5E6 {
+
+    abstract class Customer <<entity>> {
+        +Role: UserRole <<nn>>
     }
     
-    class Customer <<entity>> {
+    class RegisteredCustomer <<entity>> {
+       +FirstName: string <<nn>>
+       +LastName: string <<nn>>
+       +Email: Email <<nn>>
+       +Phone: Phone
+       +Address: Address <<nn>>
     }
     
-    class RestarauntOwner <<entity>> {
+    class AnonymousCustomer <<entity>> {
     }
 }
+
+ class RestarauntOwner <<entity>> {
+    +Role: UserRole <<nn>>
+    +CompanyName: string <<nn>>
+    +CompanyAddress: Address <<nn>>
+    +VatId: string <<nn>>
+    +Phone: Phone <<nn>>
+    +Email: Email <<nn>>
+    +FirstName : string <<nn>>
+    +LastName : string <<nn>>
+ }
 
 
 package "Cart" as P_Cart #EAF8EA {
 
     class Cart <<entity>> {
-        +Customer: Customer
-        +Resturant: Restaurant
-        +CartItems: List<CartItem>
+        +Customer: Customer <<nn>>
+        +Resturant: Restaurant <<nn>>
+        +CartItems: List<CartItem> <<nn>>
     }
     
     class CartItem <<entity>> {
-        +MenuItem: MenuItem
-        +Cart: Cart
+        +MenuItem: MenuItem <<nn>>
+        +Cart: Cart <<nn>>
+        +Quantity: int <<nn>>
+        +Comment: string
     }
 }
 
@@ -67,6 +92,9 @@ package "Restaurant" as P_Restaurant #D3C0D2 {
 
    class Restaurant <<entity>> {
         +RestarauntOwner: RestarauntOwner
+        +Name: string <<nn>>
+        +Address: Address <<nn>>
+        +Phone: Phone <<nn>>
     }
 
     class MenuItem <<entity>> {
