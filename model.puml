@@ -32,13 +32,18 @@ package "Shared\n(Value Objects)" as P_Shared #EEF6FF {
     +city: string <<nn>>
     +country: string <<nn>>
   }
-}
-
-enum UserRole {
-  Admin
-  Customer
-  Restaurant_Owner
-  Guest
+  
+  class OpeningHours << (V,#CCEEFF) ValueObject >> {
+    +OpenTime: TimeOnly <<nn>>
+    +CloseTime: TimeOnly <<nn>>
+  }
+  
+  enum UserRole {
+    Admin
+    Customer
+    Restaurant_Owner
+    Guest
+  }
 }
 
 package "Customer" as P_Customer #FFF5E6 {
@@ -59,15 +64,17 @@ package "Customer" as P_Customer #FFF5E6 {
     }
 }
 
- class RestarauntOwner <<entity>> {
-    +Role: UserRole <<nn>>
-    +CompanyName: string <<nn>>
-    +CompanyAddress: Address <<nn>>
-    +VatId: string <<nn>>
-    +Phone: Phone <<nn>>
-    +Email: Email <<nn>>
-    +FirstName : string <<nn>>
-    +LastName : string <<nn>>
+package "Restaurant_Owner" as P_Restaurant_Owner #8AA8A1 {
+     class RestarauntOwner <<entity>> {
+        +Role: UserRole <<nn>>
+        +CompanyName: string <<nn>>
+        +CompanyAddress: Address <<nn>>
+        +VatId: string <<nn>>
+        +Phone: Phone <<nn>>
+        +Email: Email <<nn>>
+        +FirstName : string <<nn>>
+        +LastName : string <<nn>>
+     }
  }
 
 
@@ -91,35 +98,56 @@ package "Cart" as P_Cart #EAF8EA {
 package "Restaurant" as P_Restaurant #D3C0D2 {
 
    class Restaurant <<entity>> {
-        +RestarauntOwner: RestarauntOwner
+        +RestarauntOwner: RestarauntOwner <<nn>>
         +Name: string <<nn>>
         +Address: Address <<nn>>
         +Phone: Phone <<nn>>
+        +OpeningHours: OpeningHours <<nn>>
     }
 
     class MenuItem <<entity>> {
-        +Restaruant: Restaurant
+        +Restaruant: Restaurant <<nn>>
+        +Name: string <<nn>>
+        +Description: string <<nn>>
+        +Price: decimal <<nn>>
     }
 }
-
 
 package "Order" as P_Order #FFF0FF {
 
     class Order <<entity>> {
-        +Customer: Customer
-        +Resturant: Restaurant
+        +OrderedAt: DateTime <<nn>>
+        +Customer: RegisteredCustomer <<nn>>
+        +Resturant: Restaurant <<nn>>
         +OrderItems: List<OrderItem>
     }
     
     class OrderItem <<entity>> {
-        +Order: Order
+        +Order: Order <<nn>>
+        +MenuItem: MenuItem <<nn>>
+        +Quantity: int <<nn>>
+        +Price: decimal <<nn>>
     }
 }
 
 ' ===================== Beziehungen =====================
 
-Cart "0..1" <-- Customer
-Cart "*" --> "1" Resturant
-Cart "1" <-- "*" CartItems
+Customer <|-- RegisteredCustomer
+Customer <|-- AnonymousCustomer
+
+Restaurant "1" <-- "*" MenuItem
+Restaurant "*" --> "1" RestarauntOwner
+
+Cart "0..1" --> "1" Customer
+Cart "*" --> "1" Restaurant
+Cart "1" <-- "*" CartItem
+
+CartItem "*" --> "1" MenuItem
+
+Order "1" <-- "*" OrderItem
+Order "1" --> "1" RegisteredCustomer
+Order "1" --> "1" Restaurant
+
+
 
 @enduml
