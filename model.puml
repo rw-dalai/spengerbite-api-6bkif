@@ -80,6 +80,7 @@ package "Customer" as P_Customer #FFF5E6 {
     +Email: Email <<nn>>
     +Phone: Phone
     +Address: Address <<nn>>
+    +Account: UserAccount <<nn>>
   }
 
   class AnonymousCustomer <<entity>> {
@@ -99,6 +100,7 @@ package "Restaurant Owner" as P_RestaurantOwner #E8F8F0 {
     +Email: Email <<nn>>
     +FirstName: string <<nn>>
     +LastName: string <<nn>>
+    +Account: UserAccount <<nn>>
   }
 }
 
