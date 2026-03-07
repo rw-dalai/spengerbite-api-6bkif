@@ -35,6 +35,10 @@ package "Shared\n(Value Objects)" as P_Shared #EEF6FF {
     +OpenTime: TimeOnly <<nn>>
     +CloseTime: TimeOnly <<nn>>
   }
+  
+  class PasswordHash << (R,#FFEECC) RichType >> {
+    +Value: string <<nn>>
+  }
 
   enum UserRole <<Enum>> {
     Admin
@@ -57,7 +61,7 @@ package "Auth" as P_Auth #F3E8FF {
 
   class UserAccount <<entity>> {
     +Email: Email <<nn>>
-    +PasswordHash: string <<nn>>
+    +PasswordHash: PasswordHash <<nn>>
     +Role: UserRole <<nn>>
     +IsEnabled: bool <<nn>>
   }
