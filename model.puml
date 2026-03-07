@@ -119,6 +119,7 @@ package "Restaurant" as P_Restaurant #F5E8F4 {
     +Name: string <<nn>>
     +Description: string <<nn>>
     +Price: decimal <<nn>>
+    +Restaurant: Restaurant <<nn>>
   }
 }
 
