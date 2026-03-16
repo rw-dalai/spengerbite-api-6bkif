@@ -77,7 +77,6 @@ package "Customer" as P_Customer #FFF5E6 {
   class RegisteredCustomer <<entity>> {
     +FirstName: string <<nn>>
     +LastName: string <<nn>>
-    +Email: Email <<nn>>
     +Phone: Phone
     +Address: Address <<nn>>
     +Account: UserAccount <<nn>>
@@ -97,7 +96,6 @@ package "Restaurant Owner" as P_RestaurantOwner #E8F8F0 {
     +CompanyAddress: Address <<nn>>
     +VatId: string <<nn>>
     +Phone: Phone <<nn>>
-    +Email: Email <<nn>>
     +FirstName: string <<nn>>
     +LastName: string <<nn>>
     +Account: UserAccount <<nn>>
@@ -180,8 +178,8 @@ Cart "1" <-- "*" CartItem
 CartItem "*" --> "1" MenuItem
 
 Order "1" <-- "*" OrderItem
-Order "1" --> "1" RegisteredCustomer
-Order "1" --> "1" Restaurant
+Order "*" --> "1" RegisteredCustomer
+Order "*" --> "1" Restaurant
 
 
 note right of UserAccount
