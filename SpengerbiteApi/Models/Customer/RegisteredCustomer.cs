@@ -5,27 +5,37 @@ namespace SpengerbiteApi.Models.Customer;
 
 public class RegisteredCustomer : Customer
 {
-    public string FirstName { get; set; }
+    public string FirstName { get; private set; }
 
-    public string LastName { get; set; }
+    public string LastName { get; private set; }
 
-    public Phone? Phone { get; set; }
+    public Phone? Phone { get; private set; }
 
-    public Address Address { get; set; }
+    public Address Address { get; private set; }
 
-    public UserAccount Account { get; set; }
+    public UserAccount Account { get; private set; }
 
 
     // EF Core
-    public RegisteredCustomer() { }
+    protected RegisteredCustomer() { }
 
     // Business Ctor
-    public RegisteredCustomer(string firstName, string lastName, Phone? phone, Address address, UserAccount account)
+    public RegisteredCustomer(
+        string firstName,
+        string lastName,
+        Phone? phone,
+        Address address,
+        UserAccount account)
     {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(firstName);
+        // TODO more validation
+        
         FirstName = firstName;
         LastName = lastName;
         Phone = phone;
         Address = address;
         Account = account;
     }
+    
+    // Business methods
 }

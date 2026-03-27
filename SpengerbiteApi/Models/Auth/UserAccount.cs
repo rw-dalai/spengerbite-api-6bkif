@@ -4,13 +4,13 @@ namespace SpengerbiteApi.Models.Auth;
 
 public class UserAccount : EntityBase
 {
-    public Email Email { get; set; }
+    public Email Email { get; private set; }
 
-    public PasswordHash PasswordHash { get; set; }
+    public PasswordHash PasswordHash { get; private set; }
 
-    public UserRole Role { get; set; }
+    public UserRole Role { get; private set; }
 
-    public bool IsEnabled { get; set; }
+    public bool IsEnabled { get; private set; }
 
 
     // EF Core
