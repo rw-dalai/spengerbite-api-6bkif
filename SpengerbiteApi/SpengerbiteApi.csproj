@@ -12,4 +12,8 @@
     <PackageReference Include="Scalar.AspNetCore" Version="2.13.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Services\CustomerService.cs" />
+  </ItemGroup>
+
 </Project>

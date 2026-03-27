@@ -1,10 +1,17 @@
 using System.Diagnostics;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SpengerbiteApi.Infrastructure;
 
 namespace SpengerbiteApi.Test;
 
+// SUTXXX_ShouldXXX_WhenXXX
+// SUT = System Under Test
+// Should = expected behavior
+// When = condition under which the expected behavior should occur
+
+// RegisteredCustomer_ShouldPersist
 public class SpengerbiteContextTests
 {
     private SpengerbiteContext GetDatabase()
@@ -14,7 +21,7 @@ public class SpengerbiteContextTests
 
         var options = new DbContextOptionsBuilder()
             .UseSqlite(connection)
-            .LogTo(message => Debug.WriteLine(message), Microsoft.Extensions.Logging.LogLevel.Information)
+            .LogTo(message => Debug.WriteLine(message), LogLevel.Information)
             .EnableSensitiveDataLogging()
             .Options;
 
@@ -32,5 +39,32 @@ public class SpengerbiteContextTests
     {
         using var db = GetDatabase();
         Assert.True(db.Database.CanConnect());
+    }
+
+    [Fact]
+    public void RegisteredCustomer_ShouldSaveAndRetrieved()
+    {
+        using var db = GetDatabase();
+        
+        // Given
+        var customer = Fixtures.NewRegisteredCustomer(
+            firstName: "Ana", lastName: "Musterfrau");
+        
+        // When
+        db.Customers.Add(customer);
+        db.SaveChanges();
+        db.ChangeTracker.Clear();
+        
+        // Then
+        // var retrievedCustomer = db.Customers.Find(customer.Id)
+        // var retrievedCustomer = db.Customers.FirstOrDefault(c => c.Id == customer.Id);
+        
+        var retrievedCustomer = db.RegisteredCustomers
+            .Include(rc => rc.Account)
+            .FirstOrDefault(c => c.Id == customer.Id);
+        // var retrievedCustomer = db.RegisteredCustomers.Find(customer.Id);
+        
+        Assert.NotNull(retrievedCustomer);
+        Assert.NotNull(retrievedCustomer.Account);
     }
 }

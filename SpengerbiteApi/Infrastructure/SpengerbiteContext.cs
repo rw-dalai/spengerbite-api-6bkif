@@ -14,6 +14,7 @@ public class SpengerbiteContext(DbContextOptions option) : DbContext(option)
     // --- Users ---
     public DbSet<UserAccount> UserAccounts => Set<UserAccount>();
     public DbSet<Customer> Customers => Set<Customer>();
+    public DbSet<RegisteredCustomer> RegisteredCustomers => Set<RegisteredCustomer>();
     public DbSet<RestaurantOwner> RestaurantOwners => Set<RestaurantOwner>();
 
     // --- Restaurant ---
