@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using SpengerbiteApi.Infrastructure;
+using SpengerbiteApi.ViewModels.Converters;
 
 
 // --- 1. Builder Phase ---
@@ -11,7 +12,9 @@ using SpengerbiteApi.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Registers controller services (incl. model binding, routing)
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+    options.JsonSerializerOptions.Converters.Add(new EmailConverter())
+);
 
 
 // Registers SpengerbiteContext
