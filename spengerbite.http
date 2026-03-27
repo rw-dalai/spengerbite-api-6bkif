@@ -1,0 +1,9 @@
+POST localhost:5000/api/customers
+Content-Type: application/json
+
+{
+    "firstName": "",
+    "lastName": "",
+    "email": "helenefischer@gmx.at",
+    "password": "12345678"
+  }
