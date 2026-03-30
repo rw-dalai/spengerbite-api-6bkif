@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using SpengerbiteApi.Exceptions;
 using SpengerbiteApi.Infrastructure;
+using SpengerbiteApi.Services;
 using SpengerbiteApi.ViewModels.Converters;
 
 
@@ -11,11 +13,16 @@ using SpengerbiteApi.ViewModels.Converters;
 // Creates a WebApplicationBuilder with default config (appsettings.json, env variables, logging, Kestrel)
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+// builder.Services.AddTransient()
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+// builder.Services.AddSingleton()
+
 // Registers controller services (incl. model binding, routing)
 builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new EmailConverter())
 );
-
 
 // Registers SpengerbiteContext
 builder.Services.AddDbContext<SpengerbiteContext>(options =>
@@ -35,12 +42,15 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<SpengerbiteContext>();
+    db.Database.EnsureDeleted();
     db.Database.EnsureCreated();
 }
 
 
 // --- 3. Middleware Phase ---
 // WHY: Configure the Order of Middleware (e.g. routing, auth, error handling) and map endpoints before starting the server.
+
+app.UseExceptionHandler();
 
 // TODO: Enable later when auth is implemented
 // app.UseAuthentication();

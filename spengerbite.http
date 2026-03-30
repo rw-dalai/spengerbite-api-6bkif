@@ -3,7 +3,13 @@ Content-Type: application/json
 
 {
     "firstName": "",
-    "lastName": "",
-    "email": "helenefischer@gmx.at",
-    "password": "12345678"
+    "lastName": "fischer",
+    "email": "helenefischer2@gmx.at",
+    "password": "12345678",
+    "address": {
+        "street": "Hauptstraße 1",
+        "zip": "12345",
+        "city": "München",
+        "country": "Deutschland"
+    }
   }

@@ -42,7 +42,7 @@ public class SpengerbiteContextTests
     }
 
     [Fact]
-    public void RegisteredCustomer_ShouldSaveAndRetrieved()
+    public void RegisteredCustomer_ShouldSaveAndRetrieve()
     {
         using var db = GetDatabase();
         
@@ -60,6 +60,7 @@ public class SpengerbiteContextTests
         // var retrievedCustomer = db.Customers.FirstOrDefault(c => c.Id == customer.Id);
         
         var retrievedCustomer = db.RegisteredCustomers
+            // Include: loads Account, otherwise null (INNER JOIN)
             .Include(rc => rc.Account)
             .FirstOrDefault(c => c.Id == customer.Id);
         // var retrievedCustomer = db.RegisteredCustomers.Find(customer.Id);
