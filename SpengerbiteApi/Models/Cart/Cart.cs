@@ -1,3 +1,4 @@
+using SpengerbiteApi.Models.Restaurant;
 using SpengerbiteApi.Models.Shared;
 
 namespace SpengerbiteApi.Models.Cart;
@@ -8,7 +9,7 @@ public class Cart : EntityBase
 
     public Restaurant.Restaurant Restaurant { get; set; }
 
-    public List<CartItem> CartItems { get; set; }
+    public List<CartItem> CartItems { get; set; } = new();
 
 
     // EF Core
@@ -20,4 +21,31 @@ public class Cart : EntityBase
         Customer = customer;
         Restaurant = restaurant;
     }
+    
+
+    public bool IsForRestaurant(int restaurantId) => 
+        Restaurant.Id == restaurantId;
+
+    // --- Story 4: Add item to cart ---
+    // TODO: Find existing item by menu item id, increase quantity if found, add new if not
+    //   Use: CartItems.FirstOrDefault(..) to find existing item
+    //   If found: increase its Quantity
+    //   If not found: add new CartItem(this, menuItem, quantity) to CartItems
+    public void AddOrIncreaseItem(MenuItem menuItem, int quantity)
+    {
+        throw new NotImplementedException();
+    }
+
+    // --- Story 5: Clear cart ---
+    // TODO: Clear all items from the cart
+    //   Use: CartItems.Clear()
+    public void ClearItems()
+    {
+        throw new NotImplementedException();
+    }
+
+    // --- Story 7: Place order ---
+    // TODO: Return true if the cart has no items
+    //   Use: CartItems.Count == 0
+    public bool IsEmpty => throw new NotImplementedException();
 }

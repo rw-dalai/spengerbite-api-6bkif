@@ -1,3 +1,4 @@
+using SpengerbiteApi.Models.Cart;
 using SpengerbiteApi.Models.Customer;
 using SpengerbiteApi.Models.Shared;
 
@@ -13,7 +14,7 @@ public class Order : EntityBase
 
     public Restaurant.Restaurant Restaurant { get; set; }
 
-    public List<OrderItem> OrderItems { get; set; }
+    public List<OrderItem> OrderItems { get; set; } = new();
 
 
     // EF Core
@@ -26,5 +27,26 @@ public class Order : EntityBase
         Status = status;
         Customer = customer;
         Restaurant = restaurant;
+    }
+
+    public decimal Total => OrderItems?.Sum(i => i.Price * i.Quantity) ?? 0;
+
+    // --- Story 6: Cancel order ---
+    // TODO: Throw DomainException if status is Delivered, otherwise set to Cancelled
+    //   If Status == OrderStatus.Delivered -> throw new DomainException("Cannot cancel a delivered order")
+    //   Otherwise -> Status = OrderStatus.Cancelled
+    public void Cancel()
+    {
+        throw new NotImplementedException();
+    }
+
+    // --- Story 7: Place order ---
+    // TODO: Copy each cart item into an OrderItem
+    //   Use: foreach over cart.CartItems
+    //   Create new OrderItem(this, cartItem.MenuItem, cartItem.Quantity, cartItem.MenuItem.Price)
+    //   Add each to OrderItems
+    public void AddLinesFromCart(Cart.Cart cart)
+    {
+        throw new NotImplementedException();
     }
 }

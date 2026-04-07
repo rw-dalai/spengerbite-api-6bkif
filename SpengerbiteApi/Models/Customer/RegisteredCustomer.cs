@@ -37,5 +37,27 @@ public class RegisteredCustomer : Customer
         Account = account;
     }
     
-    // Business methods
+    // --- Business methods ---
+
+    public void Update(string firstName, string lastName, Phone? phone, Address address)
+    {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(firstName);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(lastName);
+        // TODO more validation
+
+        FirstName = firstName;
+        LastName = lastName;
+        Phone = phone;
+        Address = address;
+    }
+
+    public void ChangeName(string firstName, string lastName)
+    {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(firstName);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(lastName);
+        // TODO more validation
+
+        FirstName = firstName;
+        LastName = lastName;
+    }
 }

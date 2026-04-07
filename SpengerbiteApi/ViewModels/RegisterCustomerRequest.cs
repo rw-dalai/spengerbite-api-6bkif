@@ -10,6 +10,8 @@ public record RegisterCustomerRequest
 
     public required Address Address { get; init; }
 
+    public Phone? Phone { get; init; }
+
     public required Email Email { get; init; }
 
     public required string Password { get; init; }

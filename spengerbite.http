@@ -1,15 +1,72 @@
-POST localhost:5000/api/customers
+### ═══════════════════════════════════════════════
+### Customers
+### ═══════════════════════════════════════════════
+
+### GET Customer by ID
+GET http://localhost:5000/api/customers/1
+
+### POST Create Customer
+POST http://localhost:5000/api/customers
 Content-Type: application/json
 
 {
-    "firstName": "",
-    "lastName": "fischer",
-    "email": "helenefischer2@gmx.at",
-    "password": "12345678",
+    "firstName": "Helene",
+    "lastName": "Fischer",
+    "email": "helene.fischer@gmx.at",
+    "password": "SecurePassword123!",
+    "phone": "1234567",
     "address": {
-        "street": "Hauptstraße 1",
-        "zip": "12345",
-        "city": "München",
-        "country": "Deutschland"
+        "street": "Spengergasse 20",
+        "zip": "1050",
+        "city": "Wien",
+        "country": "AT"
     }
-  }
+}
+
+### POST Create Customer (duplicate email -> 409 Conflict)
+POST http://localhost:5000/api/customers
+Content-Type: application/json
+
+{
+    "firstName": "Other",
+    "lastName": "Person",
+    "email": "max.mustermann@spengergasse.at",
+    "password": "SecurePassword123!",
+    "address": {
+        "street": "Teststr. 1",
+        "zip": "1010",
+        "city": "Wien",
+        "country": "AT"
+    }
+}
+
+### PUT Update Customer (full update)
+PUT http://localhost:5000/api/customers/1
+Content-Type: application/json
+
+{
+    "firstName": "Updated",
+    "lastName": "Name",
+    "phone": "9999999",
+    "address": {
+        "street": "Neue Str. 5",
+        "zip": "1020",
+        "city": "Wien",
+        "country": "AT"
+    }
+}
+
+### PATCH Change Customer Name (partial update)
+PATCH http://localhost:5000/api/customers/1
+Content-Type: application/json
+
+{
+    "firstName": "NewFirst",
+    "lastName": "NewLast"
+}
+
+### DELETE Customer
+DELETE http://localhost:5000/api/customers/1
+
+### GET Customer (not found -> 404)
+GET http://localhost:5000/api/customers/999

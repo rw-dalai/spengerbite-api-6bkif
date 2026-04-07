@@ -1,16 +1,16 @@
-using SpengerbiteApi.Models.Customer;
+using SpengerbiteApi.ViewModels;
 
 namespace SpengerbiteApi.Services;
 
 public interface ICustomerService
 {
-    public Task<RegisteredCustomer?> GetCustomerAsync(int id);
+    Task<CustomerResponse> GetCustomerAsync(int customerId);
     
-    public Task<RegisteredCustomer> RegisterCustomerAsync(ViewModels.RegisterCustomerRequest request);
+    Task<CustomerResponse> RegisterCustomerAsync(RegisterCustomerRequest request);
     
-    public Task<RegisteredCustomer> UpdateCustomer(int id /* TODO */);
+    Task<CustomerResponse> UpdateCustomerAsync(int customerId, UpdateCustomerRequest request);
     
-    public Task<RegisteredCustomer> ChangeCustomerName(int id /* TODO */);
+    Task<CustomerResponse> ChangeCustomerNameAsync(int customerId, ChangeCustomerNameRequest request);
     
-    public Task DeleteCustomer(int id);
+    Task DeleteCustomerAsync(int customerId);
 }

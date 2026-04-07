@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using SpengerbiteApi.Exceptions;
 using SpengerbiteApi.Infrastructure;
+using SpengerbiteApi.Models.Auth;
 using SpengerbiteApi.Services;
 using SpengerbiteApi.ViewModels.Converters;
 
@@ -17,12 +19,25 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 // builder.Services.AddTransient()
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-// builder.Services.AddSingleton()
+
+// Story 2: Register PasswordService
+// TODO: Register IPasswordService -> PasswordService as Singleton (stateless, no DbContext)
+// TODO: Increase PBKDF2 iterations to 600,000 (OWASP minimum)
+//   Use: builder.Services.Configure<PasswordHasherOptions>(options => options.IterationCount = 600_000);
+
+// Story 4: Register CartService
+// TODO: Register ICartService -> CartService as Scoped (depends on DbContext)
+
+// Story 6: Register OrderService
+// TODO: Register IOrderService -> OrderService as Scoped (depends on DbContext)
+builder.Services.AddSingleton<PasswordHasher<UserAccount>>();
 
 // Registers controller services (incl. model binding, routing)
 builder.Services.AddControllers().AddJsonOptions(options =>
-    options.JsonSerializerOptions.Converters.Add(new EmailConverter())
-);
+{
+    options.JsonSerializerOptions.Converters.Add(new EmailConverter());
+    options.JsonSerializerOptions.Converters.Add(new PhoneConverter());
+});
 
 // Registers SpengerbiteContext
 builder.Services.AddDbContext<SpengerbiteContext>(options =>
@@ -39,11 +54,14 @@ var app = builder.Build();
 // WHY: Perform app initialization tasks (e.g. database setup) before handling requests.
 
 // Creates the database if it doesn't exist
-using (var scope = app.Services.CreateScope())
+if (app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<SpengerbiteContext>();
+    var passwordHasher = scope.ServiceProvider.GetRequiredService<PasswordHasher<UserAccount>>();
     db.Database.EnsureDeleted();
     db.Database.EnsureCreated();
+    DatabaseSeeder.Seed(db, passwordHasher);
 }
 
 
