@@ -65,21 +65,23 @@ public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logge
         // Map: exception to HTTP status code + client safe message
         var (statusCode, detail) = exception switch
         {
-            ServiceException ex => 
-                (ex.StatusCode, ex.Message),
-    
-            DomainException ex => 
-                (400, ex.Message),
+            // - ServiceException thrown by the service layer for application level outcomes
+            //   (e.g. "Customer not found: 42", "Cart is empty")
+            ServiceException ex => (ex.StatusCode, ex.Message),
+            
+            // - DomainException thrown by domain layer for business rule violations
+            //   (e.g. "Cannot cancel a delivered order")
+            // - ArgumentException thrown by guard clauses in domain layer
+            //   (e.g. "firstName cannot be null")
+            DomainException ex => (400, ex.Message),
+            ArgumentException ex => (400, ex.Message),
 
-            ArgumentException ex => 
-                (400, ex.Message),
-
+            // - DbUpdateException is thrown by EF Core when SaveChangesAsync for a constraint violation
+            //  (e.g. unique constraint, FK constraint)
             DbUpdateException ex when ex.IsUniqueConstraintViolation() => 
                 (409, "A conflicting record already exists."),
-
-            DbUpdateException 
-                => (500, "A database error occurred."),
-
+            
+            // - Everything else unhandled is 500, but we don't want to leak details to the client
             _ => (500, "An unexpected error occurred.")
         };
 
