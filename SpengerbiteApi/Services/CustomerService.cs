@@ -242,8 +242,11 @@ public class CustomerService(
 
         // Map to DTO
         var customerResponse = new CustomerResponse(
-            customer.Id, customer.FirstName, customer.LastName,
-            customer.Account.Email, customer.Phone);
+            customer.Id,
+            customer.FirstName,
+            customer.LastName,
+            customer.Account.Email,
+            customer.Phone);
 
         logger.LogInformation("Updated customer {CustomerId}", customerId);
         return customerResponse;
