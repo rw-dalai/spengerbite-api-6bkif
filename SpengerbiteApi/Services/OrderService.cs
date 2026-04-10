@@ -42,7 +42,6 @@ public class OrderService(
     // ═══════════════════════════════════════════════════════════
     // TODO Step 1: Load the customer (throw not found if missing)
     // TODO Step 2: Load the order with its customer (throw not found if missing)
-    //   Use: await db.Orders.Include(..).FirstOrDefaultAsync(..)
     // TODO Step 3: Verify the order belongs to the customer (throw forbidden if not)
     // TODO Step 4: Cancel the order (may throw DomainException if already delivered)
     // TODO Step 5: Save and log
@@ -52,7 +51,6 @@ public class OrderService(
     // ═══════════════════════════════════════════════════════════
     // TODO Step 1: Load the customer (throw not found if missing)
     // TODO Step 2: Load the cart with items and menu items (throw not found if missing)
-    //   Use: await db.Carts.Include(..).ThenInclude(..).FirstOrDefaultAsync(..)
     // TODO Step 3: Validate the cart is not empty (throw conflict if empty)
     // TODO Step 4: Create an order, copy lines from cart, clear cart, save
     // TODO Step 5: Return the mapped response
