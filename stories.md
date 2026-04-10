@@ -45,6 +45,12 @@ The password in the database should be a hash, not plaintext. Try a weak passwor
 ### Story 4: Add Item to Cart
 > As a customer, I want to add an item to my cart.
 
+- `CartService.AddItemToCart(CustomerId, AddCartItemRequest)`  
+- `AddCartItemRequest` should include `MenuItemId` and `Quantity`.  
+- `CartResponse` should include `CartId`, `customerId`, `restaurantId`, `TotalPrice`, and a List of `CartItemResponse`.  
+- `CartItemResponse` should include `MenuItemId`, `MenuItemName`, `Price`, `Quantity`, and `LineTotal`.  
+
+
 **Files:**
 - [ ] `ViewModels/AddCartItemRequest.cs` -- **create** request record
 - [ ] `ViewModels/CartResponse.cs` -- **create** response record
