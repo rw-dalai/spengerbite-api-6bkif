@@ -45,7 +45,7 @@ The password in the database should be a hash, not plaintext. Try a weak passwor
 ### Story 4: Add Item to Cart
 > As a customer, I want to add an item to my cart.
 
-- `CartService.AddItemToCart(CustomerId, AddCartItemRequest)`  
+- `CartResponse CartService.AddItemToCart(CustomerId, AddCartItemRequest)`  
 - `AddCartItemRequest` should include `MenuItemId` and `Quantity`.  
 - `CartResponse` should include `CartId`, `CustomerId`, `RestaurantId`, `TotalPrice`, and a List of `CartItemResponse`.  
 - `CartItemResponse` should include `MenuItemId`, `MenuItemName`, `Price`, `Quantity`, and `LineTotal`.  
@@ -68,6 +68,8 @@ The password in the database should be a hash, not plaintext. Try a weak passwor
 ### Story 5: Clear Cart
 > As a customer, I want to clear my cart.
 
+`void CartService.ClearCart(CustomerId)`
+
 **Files:**
 - [ ] `Models/Cart/Cart.cs` -- implement ClearItems()
 - [ ] `Services/ICartService.cs` -- add method signature
@@ -80,6 +82,8 @@ The password in the database should be a hash, not plaintext. Try a weak passwor
 
 ### Story 6: Cancel Order
 > As a customer, I want to cancel my order.
+
+`void OrderService.CancelOrder(CustomerId, OrderId)`
 
 **Files:**
 - [ ] `Models/Order/Order.cs` -- implement Cancel()
@@ -94,6 +98,10 @@ The password in the database should be a hash, not plaintext. Try a weak passwor
 
 ### Story 7: Place Order (depends on Story 5)
 > As a customer, I want to place an order from my cart.
+
+`OrderResponse OrderService.Order(CustomerId)`
+`OrderResponse` should include `OrderId`, `UserId`, `RestaurantId`, `Status`, `TotalPrice`, and a List of `OrderItemResponse`
+`OrderItemResponse` should include `MenuItemName`, `Quantity`, `Price`, and `LineTotal`.
 
 **Files:**
 - [ ] `ViewModels/OrderResponse.cs` -- **create** response record
