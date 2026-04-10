@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using SpengerbiteApi.Exceptions;
 using SpengerbiteApi.Infrastructure;
-using SpengerbiteApi.Models.Auth;
+using SpengerbiteApi.Models;
 using SpengerbiteApi.Services;
 using SpengerbiteApi.ViewModels.Converters;
 

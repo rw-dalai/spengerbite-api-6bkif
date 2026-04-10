@@ -13,7 +13,7 @@ public class CartService(SpengerbiteContext db, ILogger<CartService> logger ) : 
     // TODO Step 2: Load the menu item with its restaurant (throw not found if missing)
     // TODO Step 3: Load existing cart or create a new one
     // TODO Step 4: Validate same restaurant (throw conflict if cart is for a different restaurant)
-    // TODO Step 5: Add or increase the item
+    // TODO Step 5: Add or increase the item (see Cart domain model TODOs)
     // TODO Step 6: Save and return mapped response
 
     // ═══════════════════════════════════════════════════════════

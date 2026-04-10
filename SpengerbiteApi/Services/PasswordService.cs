@@ -65,7 +65,7 @@
 // ══════════════════════════════════════════════════════════════════════
 
 using Microsoft.AspNetCore.Identity;
-using SpengerbiteApi.Models.Auth;
+using SpengerbiteApi.Models;
 using SpengerbiteApi.Models.Shared;
 
 namespace SpengerbiteApi.Services;

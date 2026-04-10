@@ -1,6 +1,6 @@
 using SpengerbiteApi.Models.Shared;
 
-namespace SpengerbiteApi.Models.Customer;
+namespace SpengerbiteApi.Models;
 
 public abstract class Customer : EntityBase
 {

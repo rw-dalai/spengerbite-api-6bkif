@@ -1,4 +1,4 @@
-namespace SpengerbiteApi.Models.Customer;
+namespace SpengerbiteApi.Models;
 
 public class AnonymousCustomer : Customer
 {

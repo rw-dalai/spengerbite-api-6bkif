@@ -1,9 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using SpengerbiteApi.Models.Auth;
-using SpengerbiteApi.Models.Cart;
-using SpengerbiteApi.Models.Customer;
-using SpengerbiteApi.Models.Order;
-using SpengerbiteApi.Models.Restaurant;
+using SpengerbiteApi.Models;
 using SpengerbiteApi.Models.Shared;
 
 namespace SpengerbiteApi.Infrastructure;

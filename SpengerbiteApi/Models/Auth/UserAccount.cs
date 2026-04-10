@@ -1,6 +1,6 @@
 using SpengerbiteApi.Models.Shared;
 
-namespace SpengerbiteApi.Models.Auth;
+namespace SpengerbiteApi.Models;
 
 public class UserAccount : EntityBase
 {

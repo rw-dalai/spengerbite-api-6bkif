@@ -1,8 +1,6 @@
-using SpengerbiteApi.Models.Cart;
-using SpengerbiteApi.Models.Customer;
 using SpengerbiteApi.Models.Shared;
 
-namespace SpengerbiteApi.Models.Order;
+namespace SpengerbiteApi.Models;
 
 public class Order : EntityBase
 {
@@ -12,7 +10,7 @@ public class Order : EntityBase
 
     public RegisteredCustomer Customer { get; set; }
 
-    public Restaurant.Restaurant Restaurant { get; set; }
+    public Restaurant Restaurant { get; set; }
 
     public List<OrderItem> OrderItems { get; set; } = new();
 
@@ -21,7 +19,7 @@ public class Order : EntityBase
     protected Order() { }
 
     // Business Ctor
-    public Order(DateTime orderedAt, OrderStatus status, RegisteredCustomer customer, Restaurant.Restaurant restaurant)
+    public Order(DateTime orderedAt, OrderStatus status, RegisteredCustomer customer, Restaurant restaurant)
     {
         OrderedAt = orderedAt;
         Status = status;
@@ -29,7 +27,7 @@ public class Order : EntityBase
         Restaurant = restaurant;
     }
 
-    public decimal Total => OrderItems?.Sum(i => i.Price * i.Quantity) ?? 0;
+    public decimal Total => 0; /* TODO Total Sum*/
 
     // --- Story 6: Cancel order ---
     // TODO: Throw DomainException if status is Delivered, otherwise set to Cancelled
@@ -42,10 +40,9 @@ public class Order : EntityBase
 
     // --- Story 7: Place order ---
     // TODO: Copy each cart item into an OrderItem
-    //   Use: foreach over cart.CartItems
     //   Create new OrderItem(this, cartItem.MenuItem, cartItem.Quantity, cartItem.MenuItem.Price)
     //   Add each to OrderItems
-    public void AddLinesFromCart(Cart.Cart cart)
+    public void AddLinesFromCart(Cart cart)
     {
         throw new NotImplementedException();
     }

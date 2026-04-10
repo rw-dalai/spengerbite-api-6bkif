@@ -1,6 +1,6 @@
 using SpengerbiteApi.Models.Shared;
 
-namespace SpengerbiteApi.Models.Restaurant;
+namespace SpengerbiteApi.Models;
 
 public class Restaurant : EntityBase
 {

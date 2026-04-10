@@ -1,13 +1,12 @@
-using SpengerbiteApi.Models.Restaurant;
 using SpengerbiteApi.Models.Shared;
 
-namespace SpengerbiteApi.Models.Cart;
+namespace SpengerbiteApi.Models;
 
 public class Cart : EntityBase
 {
-    public Customer.Customer Customer { get; set; }
+    public Customer Customer { get; set; }
 
-    public Restaurant.Restaurant Restaurant { get; set; }
+    public Restaurant Restaurant { get; set; }
 
     public List<CartItem> CartItems { get; set; } = new();
 
@@ -16,7 +15,7 @@ public class Cart : EntityBase
     protected Cart() { }
 
     // Business Ctor
-    public Cart(Customer.Customer customer, Restaurant.Restaurant restaurant)
+    public Cart(Customer customer, Restaurant restaurant)
     {
         Customer = customer;
         Restaurant = restaurant;
@@ -28,7 +27,6 @@ public class Cart : EntityBase
 
     // --- Story 4: Add item to cart ---
     // TODO: Find existing item by menu item id, increase quantity if found, add new if not
-    //   Use: CartItems.FirstOrDefault(..) to find existing item
     //   If found: increase its Quantity
     //   If not found: add new CartItem(this, menuItem, quantity) to CartItems
     public void AddOrIncreaseItem(MenuItem menuItem, int quantity)
@@ -38,7 +36,6 @@ public class Cart : EntityBase
 
     // --- Story 5: Clear cart ---
     // TODO: Clear all items from the cart
-    //   Use: CartItems.Clear()
     public void ClearItems()
     {
         throw new NotImplementedException();
@@ -46,6 +43,5 @@ public class Cart : EntityBase
 
     // --- Story 7: Place order ---
     // TODO: Return true if the cart has no items
-    //   Use: CartItems.Count == 0
     public bool IsEmpty => throw new NotImplementedException();
 }

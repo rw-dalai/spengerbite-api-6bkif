@@ -62,7 +62,7 @@ public class SpengerbiteContextTests
         var retrievedCustomer = db.RegisteredCustomers
             // Include: loads Account, otherwise null (INNER JOIN)
             .Include(rc => rc.Account)
-            .FirstOrDefault(c => c.Id == customer.Id);
+            .FirstOrDefault(rc => rc.Id == customer.Id);
         // var retrievedCustomer = db.RegisteredCustomers.Find(customer.Id);
         
         Assert.NotNull(retrievedCustomer);

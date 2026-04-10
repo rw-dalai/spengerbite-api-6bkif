@@ -126,8 +126,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using SpengerbiteApi.Infrastructure;
-using SpengerbiteApi.Models.Auth;
-using SpengerbiteApi.Models.Customer;
+using SpengerbiteApi.Models;
 using SpengerbiteApi.Models.Shared;
 using SpengerbiteApi.ViewModels;
 using SpengerbiteApi.Exceptions;

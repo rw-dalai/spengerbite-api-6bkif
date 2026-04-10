@@ -1,12 +1,12 @@
 using SpengerbiteApi.Models.Shared;
 
-namespace SpengerbiteApi.Models.Cart;
+namespace SpengerbiteApi.Models;
 
 public class CartItem : EntityBase
 {
     public Cart Cart { get; set; }
 
-    public Restaurant.MenuItem MenuItem { get; set; }
+    public MenuItem MenuItem { get; set; }
 
     public int Quantity { get; set; }
 
@@ -17,7 +17,7 @@ public class CartItem : EntityBase
     protected CartItem() { }
 
     // Business Ctor
-    public CartItem(Cart cart, Restaurant.MenuItem menuItem, int quantity, string? comment = null)
+    public CartItem(Cart cart, MenuItem menuItem, int quantity, string? comment = null)
     {
         Cart = cart;
         MenuItem = menuItem;

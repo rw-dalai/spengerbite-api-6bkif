@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SpengerbiteApi.Infrastructure;
-using SpengerbiteApi.Models.Auth;
 using SpengerbiteApi.Models.Shared;
 using SpengerbiteApi.ViewModels.Converters;
 using System.Net;
 using System.Text;
 using System.Text.Json;
+using SpengerbiteApi.Models;
 
 namespace SpengerbiteApi.Test;
 

@@ -1,7 +1,6 @@
-using SpengerbiteApi.Models.Auth;
 using SpengerbiteApi.Models.Shared;
 
-namespace SpengerbiteApi.Models.Customer;
+namespace SpengerbiteApi.Models;
 
 public class RegisteredCustomer : Customer
 {
