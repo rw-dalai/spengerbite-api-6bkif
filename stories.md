@@ -96,12 +96,12 @@ The password in the database should be a hash, not plaintext. Try a weak passwor
 
 ---
 
-### Story 7: Place Order (depends on Story 5)
+### Story 7: Place Order
 > As a customer, I want to place an order from my cart.
 
-`OrderResponse OrderService.Order(CustomerId)`
-`OrderResponse` should include `OrderId`, `UserId`, `RestaurantId`, `Status`, `TotalPrice`, and a List of `OrderItemResponse`
-`OrderItemResponse` should include `MenuItemName`, `Quantity`, `Price`, and `LineTotal`.
+- `OrderResponse OrderService.Order(CustomerId)`  
+- `OrderResponse` should include `OrderId`, `UserId`, `RestaurantId`, `Status`, `TotalPrice`, and a List of `OrderItemResponse`  
+- `OrderItemResponse` should include `MenuItemName`, `Quantity`, `Price`, and `LineTotal`.
 
 **Files:**
 - [ ] `ViewModels/OrderResponse.cs` -- **create** response record
